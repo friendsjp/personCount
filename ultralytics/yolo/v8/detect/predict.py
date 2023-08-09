@@ -25,6 +25,8 @@ data_deque = {}
 
 deepsort = None
 
+myList = []
+
 def init_tracker():
     global deepsort
     cfg_deep = get_config()
@@ -151,6 +153,10 @@ def draw_boxes(img, bbox, names,object_id, identities=None, offset=(0, 0)):
         obj_name = names[object_id[i]]
         label = '{}{:d}'.format("", id) + ":"+ '%s' % (obj_name)
 
+	    # person count
+        if obj_name == 'person':
+          myList.append(label)
+
         # add center to buffer
         data_deque[id].appendleft(center)
         UI_box(box, img, label=label, color=color, line_thickness=2)
@@ -251,7 +257,8 @@ def predict(cfg):
     cfg.source = cfg.source if cfg.source is not None else ROOT / "assets"
     predictor = DetectionPredictor(cfg)
     predictor()
-
+    print(set(myList))
+    print(len(set(myList)))
 
 if __name__ == "__main__":
     predict()
