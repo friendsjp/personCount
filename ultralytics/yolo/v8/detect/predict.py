@@ -153,6 +153,10 @@ def draw_boxes(img, bbox, names,object_id, identities=None, offset=(0, 0)):
         obj_name = names[object_id[i]]
         label = '{}{:d}'.format("", id) + ":"+ '%s' % (obj_name)
 
+        # person only
+        if obj_name != 'person':
+          continue
+        
 	    # person count
         if obj_name == 'person':
           myList.append(label)
